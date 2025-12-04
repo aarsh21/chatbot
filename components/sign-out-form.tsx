@@ -1,18 +1,25 @@
-import Form from "next/form";
+"use client";
 
-import { signOut } from "@/app/(auth)/auth";
+import { useRouter } from "next/navigation";
+import { signOut } from "@/lib/auth-client";
 
 export const SignOutForm = () => {
-  return (
-    <Form
-      action={async () => {
-        "use server";
+  const router = useRouter();
 
+  return (
+    <form
+      className="w-full"
+      onSubmit={async (e) => {
+        e.preventDefault();
         await signOut({
-          redirectTo: "/",
+          fetchOptions: {
+            onSuccess: () => {
+              router.push("/");
+              router.refresh();
+            },
+          },
         });
       }}
-      className="w-full"
     >
       <button
         className="w-full px-1 py-0.5 text-left text-red-500"
@@ -20,6 +27,6 @@ export const SignOutForm = () => {
       >
         Sign out
       </button>
-    </Form>
+    </form>
   );
 };
