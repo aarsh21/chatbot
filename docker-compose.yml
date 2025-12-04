@@ -7,6 +7,7 @@ services:
       - "6543:3000"
     environment:
       - AUTH_SECRET=${AUTH_SECRET}
+      - AUTH_TRUST_HOST=true
       - ZHIPU_API_KEY=${ZHIPU_API_KEY}
       - POSTGRES_URL=postgresql://postgres:postgres@db:5432/chatbot
       - REDIS_URL=redis://redis:6379
